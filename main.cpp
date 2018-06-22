@@ -3,7 +3,6 @@
 * Official repo: https://github.com/Dr-Chaos/Read-Write-Process-Memory	*
 *************************************************************************/
 
-
 #include "memorymanager.h"
 #include <iostream>
 
@@ -16,8 +15,14 @@ int main()
 	memory_manager memory;
 
 	memory.window("Breakpoint World Tennis Tournament");
-	cout << "Address value: " << memory.read(0x7FF763ADBE4C) << endl;
-	memory.write_int(0x7FF763ADBE4C, 33);
+	
+	auto address_int = 0x7FF763ADBE4C;
+	cout << "Address value: " << memory.read(address_int) << endl;
+	memory.write_int(address_int, 50);
+
+	auto address_string = 0x9LL193JQWE1P;
+	cout << "Actual address_string value: " << memory.read_string(address_string) << endl;
+	memory.write_string(address_string, "Hello");
 
 	cout << "Press Enter to continue..." << endl;
 	cin.ignore().get();
