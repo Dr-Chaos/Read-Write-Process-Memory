@@ -1,3 +1,9 @@
+/************************************************************************
+* Author: Dr-Chaos														*
+* Official repo: https://github.com/Dr-Chaos/Read-Write-Process-Memory	*
+*************************************************************************/
+
+
 #include "memorymanager.h"
 #include <iostream>
 
