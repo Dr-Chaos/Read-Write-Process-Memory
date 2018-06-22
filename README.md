@@ -6,7 +6,7 @@ Useful for hacking, create game trainers, game bots, etc
 
 ## How to use
 1. Download and add memorymanager.h to your project
-2. Add the follow lines to you code:
+2. Add use the library like this
 
 ```
 #include "memorymanager.h"
