@@ -8,7 +8,7 @@ Useful for hacking, create game trainers, game bots, etc
 1. Download and add memorymanager.h to your project
 2. Add the follow lines to you code:
 
-````
+```
 #include "memorymanager.h"
 // ...
 int main()
@@ -24,5 +24,6 @@ int main()
 	memory.write_string(0x9LL193JQWE1P, "my new string");
 }
 ```
+
 
 Note: see main.cpp for exemples
