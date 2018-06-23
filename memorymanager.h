@@ -15,7 +15,7 @@
 class memory_manager
 {
 public:
-
+	// load process by window name
 	void window(const char* window_name);
 
 	// read static_address
@@ -27,7 +27,7 @@ public:
 	void write_string(long long static_address, const std::string& new_data) const;
 
 	// get module_base_address
-	uintptr_t get_module_base_address(const TCHAR* sz_module_name) const;
+	long long get_module_base_address(const TCHAR* module_name) const;
 
 	// read module_base_address + offset_address = static_address
 	int read_base_int(const TCHAR* module_name, long long offset_address) const;
@@ -36,7 +36,6 @@ public:
 	// write in module_base_address + offset_address = static_address
 	void write_base_int(const TCHAR* module_name, long long offset_address, int new_data) const;
 	void write_base_string(const TCHAR* module_name, long long offset_address, const std::string& new_data) const;
-
 
 	// global objects
 	HANDLE application_process = nullptr;
@@ -166,29 +165,32 @@ inline void memory_manager::write_string(const long long static_address, const s
  * use processus name for return module base address
  * in Cheat Engine: double click on static address, you need to see: wttpc.exe+84391C4
  * wttpc.exe is the processus name and 84391C4 is the offset.
- * So the module_base_address + offset_address = static_address
+ * so the module_base_address + offset_address = static_address
+ *
+ * !! important !! for use TCHAR*, you need to use:
+ * auto module_name = _T("module.exe");
  */
-inline uintptr_t memory_manager::get_module_base_address(const TCHAR* sz_module_name) const
+inline long long memory_manager::get_module_base_address(const TCHAR* module_name) const
 {
-	uintptr_t module_base_address = 0;
-	const auto h_snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, process_pid);
-	if (h_snapshot != INVALID_HANDLE_VALUE)
+	long long module_base_address = 0;
+	const auto snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, process_pid);
+	if (snapshot != INVALID_HANDLE_VALUE)
 	{
 		MODULEENTRY32 module_entry32;
 		module_entry32.dwSize = sizeof(MODULEENTRY32);
-		if (Module32First(h_snapshot, &module_entry32))
+		if (Module32First(snapshot, &module_entry32))
 		{
 			do
 			{
-				if (_tcsicmp(module_entry32.szModule, sz_module_name) == 0)
+				if (_tcsicmp(module_entry32.szModule, module_name) == 0)
 				{
 					module_base_address = uintptr_t(module_entry32.modBaseAddr);
 					break;
 				}
 			}
-			while (Module32Next(h_snapshot, &module_entry32));
+			while (Module32Next(snapshot, &module_entry32));
 		}
-		CloseHandle(h_snapshot);
+		CloseHandle(snapshot);
 	}
 
 	return module_base_address;
@@ -268,7 +270,8 @@ inline void memory_manager::write_base_int(const TCHAR* module_name, const long 
  * \param offset_address 
  * \param new_data 
  */
-inline void memory_manager::write_base_string(const TCHAR* module_name, const long long offset_address, const std::string& new_data) const
+inline void memory_manager::write_base_string(const TCHAR* module_name, const long long offset_address,
+                                              const std::string& new_data) const
 {
 	const auto module_base_address = get_module_base_address(module_name);
 	if (WriteProcessMemory(application_process, LPVOID(module_base_address + offset_address), new_data.c_str(),
