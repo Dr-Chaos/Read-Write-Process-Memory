@@ -31,7 +31,7 @@ int main()
 	memory.write_string(address_string, "Hello");
 	
 	// advanced features for module base address
-	const auto module_name = "wttpc.exe";
+	const auto module_name = _T("wttpc.exe");
 	const auto offset_address_int = 0x8B6BE4C;
 	cout << "read_base_int value: " << memory.read_base_int(module_name, offset_address_int) << endl;
 	memory.write_base_int(module_name, offset_address_int, 133);
