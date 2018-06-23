@@ -20,12 +20,12 @@ int main()
 	// open process
 	memory.window("Breakpoint World Tennis Tournament");
 	
-	// read and write int address
+	// read and write int address value
 	auto address_int = 0x7FF763ADBE4C;
 	cout << "Address value: " << memory.read(address_int) << endl;
 	memory.write_int(address_int, 50);
 
-	// read and write string address
+	// read and write string address value
 	auto address_string = 0x9LL193JQWE1P;
 	cout << "Actual address_string value: " << memory.read_string(address_string) << endl;
 	memory.write_string(address_string, "Hello");
