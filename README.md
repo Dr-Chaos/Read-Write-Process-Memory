@@ -1,12 +1,12 @@
 # Read-Write-Process-Memory
 
-An easy to use header, for read and write process memory ! 
+An easy to use header for read and write process memory ! 
 Useful for hacking, create game trainers, game bots, etc
 
 
 ## How to use
 1. Download and add memorymanager.h to your project
-2. Add use the library like this
+2. And use the library like this:
 
 ```
 #include "memorymanager.h"
