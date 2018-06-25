@@ -57,7 +57,7 @@ int main()
 	DWORD offsets[] = { 0xD0, 0x1B0, 0x2C, 0x18 };
 	const auto multi_level_pointer_address = memory.get_address_from_multi_level_pointer(static_base_address, offsets, 4);
 	cout << memory.read_float(multi_level_pointer_address) << endl;
-	memory.write_int(multi_level_pointer_address, 10);
+	memory.write_float(multi_level_pointer_address, 10);
 
 
 	cout << "Press Enter to continue..." << endl;
