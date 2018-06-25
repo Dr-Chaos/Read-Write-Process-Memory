@@ -43,4 +43,4 @@ int main()
 ```
 
 
-Note: see main.cpp for exemples
+Note: see main.cpp for more exemples
